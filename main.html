@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Gestión de Documentación de Personal</title>
+    <link rel="stylesheet" type="text/css" href="{{ base_url }}static/styles.css">
+</head>
+<body>
+    <header>
+        <h1>Gestión de Documentación de Personal</h1>
+    </header>
+    <nav>
+        <ul>
+            <li><a href="{{ base_url }}">Inicio</a></li>
+            <li><a href="{{ base_url }}import_mass_data">Importar Datos</a></li>
+        </ul>
+    </nav>
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+</body>
+</html>

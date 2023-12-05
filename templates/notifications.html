@@ -1,0 +1,53 @@
+{% extends 'main.html' %}
+{% block content %}
+<h2>Centro de Notificaciones de Vencimientos</h2>
+
+    <table border="1">
+        <tr>
+            <th>Nombre</th>
+            <th>Documento</th>
+            <th>Documento Vencido</th>
+            <th>Fecha de Vencimiento</th>
+            <th>Días Restantes</th>
+            <th>Estado</th>
+            <th>Perfil</th>
+            
+            
+        </tr>
+        {% for worker_to_notify in workers_to_notify %}
+            <tr>
+                <td>{{ worker_to_notify.name }}</td>
+                <td>{{ worker_to_notify.document }}</td>
+                <td>{{ worker_to_notify.doc_name }}</td>
+                <td>{{ worker_to_notify.end_date }}</td>
+                <td>{{ worker_to_notify.tiempo_vencimiento }}</td>
+                <td>{{ worker_to_notify.estado_documento }}</td>
+                <td><a href="{{ base_url }}view_worker/{{ worker_to_notify.id }}" class="btn primary">Ver Perfil</a></td>
+                
+            </tr>
+        {% endfor %}
+    </table>
+
+
+<style>
+    .worker-details {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .worker-info {
+        width: 50%;
+    }
+
+    .worker-photo {
+        width: 50%;
+        text-align: center;
+    }
+
+    .worker-photo img {
+        max-width: 100%;
+        max-height: 200px;
+    }
+</style>
+
+{% endblock %}

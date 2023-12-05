@@ -1,0 +1,56 @@
+{% extends 'main.html' %}
+
+{% block content %}
+<head>
+    <!-- Otros elementos head -->
+     
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<h1>Ingresar Documentación Personal</h1>
+<form method="POST" action="{{ url_for('add_personal_info', id=worker['id']) }}" enctype="multipart/form-data">
+
+    <!-- Coloca la etiqueta <table> fuera del bucle -->
+    <table border="1">
+        <tr>
+            <th>Documento</th>
+            <th>Fecha de Inicio</th>
+            <th>Fecha de Vencimiento</th>
+            <th>Tipo de Alerta [Días]</th>
+            <th>Estado</th>
+            <th>Archivo</th>
+        </tr>
+        {% for field, doc_name in documentos %}
+            <tr>
+                <td>{{ doc_name }}</td>
+                <td><input type="date" name="{{ field }}_start_date" value="{{ formatted_dates[field+'_start_date']}}"></td>
+                <td><input type="date" name="{{ field }}_end_date" value="{{ formatted_dates[field+'_end_date']}}"></td>
+                <td>
+                    <select name="{{ field }}_tipo_alerta_dias">
+                        <option value="15" {% if worker[field+'_tipo_alerta_dias'] == 15 %} selected {% endif %}>15</option>
+                        <option value="30" {% if worker[field+'_tipo_alerta_dias'] == 30 %} selected {% endif %}>30</option>
+                        <option value="45" {% if worker[field+'_tipo_alerta_dias'] == 45 %} selected {% endif %}>45</option>
+                        <option value="60" {% if worker[field+'_tipo_alerta_dias'] == 60 %} selected {% endif %}>60</option>
+                    </select>
+                </td>
+                <td>
+                    {% set estado_documento = calculate_estado_documento(worker[field+'_end_date'], worker[field+'_tipo_alerta_dias']) %}
+                    {{ estado_documento }}
+                <td>
+                    {% if uploaded_files[field+'_file'] %}
+                        <a href="{{ url_for('uploaded_file', filename=uploaded_files[field+'_file']) }}" target="_blank" class="btn primary">Ver Archivo</a>
+                          
+                    {% endif %}
+                    
+                    <input type="file" name="document_file_{{ field }}">
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
+    <!-- Botón para enviar el formulario -->
+    <button type="submit" class="save-button">Guardar Cambios</button>
+</form>
+
+<a href="{{ url_for('view_worker', id=worker['id']) }}" class="btn primary">Volver a Detalles del Trabajador</a>
+
+{% endblock %}

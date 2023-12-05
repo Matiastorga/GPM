@@ -1,0 +1,78 @@
+{% extends 'main.html' %}
+<script>
+    function formatDate(date) {
+        const d = new Date(date);
+        let month = '' + (d.getMonth() + 1);
+        let day = '' + d.getDate();
+        const year = d.getFullYear();
+
+        if (month.length < 2) month = '0' + month;
+        if (day.length < 2) day = '0' + day;
+
+        return [year, month, day].join('-');
+    }
+
+    function onSubmit() {
+        const startDateInput = document.getElementById('start_date_str');
+        startDateInput.value = formatDate(startDateInput.value);
+
+        const endDateInput = document.getElementById('end_date_str');
+        endDateInput.value = formatDate(endDateInput.value);
+
+        // Resto del código para enviar el formulario al servidor
+    }
+</script>
+{% block content %}
+    <h1>Agregar Información Contractual</h1>
+    <form class="styled-form" method="POST" action="{{ base_url }}add_contract_info/{{ worker['id'] }}">
+        <table class="styled-table">
+            <tr>
+                <th>Contrato Comercial</th>
+                <td>
+                    <input type="text" name="contract_commercial" value="{{ worker.contract_commercial if 'contract_commercial' in worker else '' }}">
+                </td>
+            </tr>
+            <tr>
+                <th>Tipo de Contrato</th>
+                <td>
+                    <select name="contract_type">
+                        <option value="">Seleccione...</option>
+                        {% for contract_type in contract_types %}
+                            <option value="{{ contract_type }}" {% if worker.contract_type == contract_type %} selected {% endif %}>{{ contract_type }}</option>
+                        {% endfor %}
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <th>Fecha Inicio Contrato</th>
+                <td>
+                    {% if worker.start_date is not none %}
+                    <input type="date" name="start_date_str" value="{% if worker.start_date is string %}{{ worker.start_date }}{% else %}{{ worker.start_date.strftime('%Y-%m-%d') }}{% endif %}">
+                    {% else %}
+                      <input type="date" name="start_date_str" value="">
+                    {% endif %}
+
+                </td>
+            </tr>
+            <tr>
+                <th>Fecha Termino Contrato</th>
+                <td>
+                    {% if worker.end_date is not none %}
+                    <input type="date" name="end_date_str" value="{% if worker.end_date is string %}{{ worker.end_date }}{% else %}{{ worker.end_date.strftime('%Y-%m-%d') }}{% endif %}">
+                    {% else %}
+                      <input type="date" name="end_date_str" value="">
+                    {% endif %}
+                </td>
+            </tr>
+            <tr>
+                <th>Tipo de Turno</th>
+                <td>
+                    <input type="text" name="shift_type" value="{{ worker.shift_type if 'shift_type' in worker else '' }}">
+                </td>
+            </tr>
+        </table>
+        <button type="submit" class="save-button">Guardar Cambios</button>
+    </form>
+    <a href="{{ base_url }}view_worker/{{ worker['id'] }}" class="btn primary">Volver a Información del Trabajador</a>
+    
+{% endblock %}

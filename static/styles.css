@@ -1,0 +1,155 @@
+/* Estilos generales */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: white;
+    color: #000000; /* Cambio de color de texto principal */
+}
+
+header {
+    background-color: white; /* Azul */
+    color: rgb(0, 0, 0);
+    text-align: center;
+    padding: 1rem;
+    /* Agregar el estilo del logo como fondo */
+    background-image: url('https://drive.google.com/uc?id=19o6gUHGdKeKWxVH_jgmE7hLxO828Dj_I');
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+nav ul {
+    list-style-type: none;
+    padding: 0;
+    background-color: #0A1172; /* Azul */
+    text-align: center;
+}
+
+nav ul li {
+    display: inline;
+    margin-right: 1rem;
+}
+
+nav a {
+    text-decoration: none;
+    color:  white;
+    font-weight: bold;
+}
+
+main {
+    padding: 1rem;
+}
+
+/* Estilos para las tablas */
+table {
+    border-collapse: collapse;
+    width: 100%;
+    margin: 0 auto;
+    background-color: white;
+    box-shadow: 0 0 10px #0A1172;
+    border-radius: 5px;
+}
+
+table, th, td {
+    border: 1px solid #ccc;
+}
+
+th, td {
+    padding: 8px;
+    text-align: left;
+}
+
+th {
+    background-color: #0A1172;
+    color: white;
+}
+
+/* Estilos para formularios */
+form {
+    margin: 20px;
+}
+
+label {
+    display: block;
+    margin: 5px 0;
+}
+
+input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    margin: 5px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+input[type="submit"] {
+    background-color: #1a41b5;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+/* Estilos para botones de acción */
+.action-button {
+    text-decoration: none;
+    padding: 5px 10px;
+    background-color: #333;
+    color: white;
+    border-radius: 5px;
+}
+
+/* Estilos específicos para elementos dentro del formulario */
+.import-form {
+    text-align: center;
+}
+
+/* Estilos para mensajes de error y éxito */
+.error-message {
+    color: red;
+}
+
+.success-message {
+    color: green;
+}
+
+/* Estilos para botones de exportar */
+.export-button {
+    background-color: #333;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.btn {
+    border: none; 
+    color: black; 
+    padding: 3px 5px; 
+    cursor: pointer; 
+    border-radius: 5px; 
+  }
+  .primary {background-color: white; border: 2px solid #0a0a5f;} 
+  .primary:hover {background: #004457; color: white;}
+  .secondary {background-color: white; border: 2px solid #e7e7e7;} 
+  .secondary:hover {background: #ddd; color: white;}
+  .success {background-color: white; border: 2px solid #04AA6D;} 
+  .success:hover {background-color: #46a049; color: white;}
+  .warning {background-color: white; border: 2px solid #ff9800;} 
+  .warning:hover {background: #e68a00; color: white;}
+  .danger {background-color: white; border: 2px solid #f44336;} 
+  .danger:hover {background: #da190b; color: white;}
+  .save-button {
+    background-color: #3498db; /* Cambia este color al azul que desees */
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.save-button:hover {
+    background-color: #2980b9; /* Cambia este color al tono más oscuro o más claro del azul para el efecto hover */
+}

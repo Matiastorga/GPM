@@ -1,0 +1,21 @@
+{% extends 'main.html' %}
+
+{% block content %}
+    <h1>Editar Trabajador</h1>
+    <form method="POST" action="{{ base_url }}edit_worker/{{ worker['id'] }}">
+        Nombre: <input type="text" name="name" value="{{ worker['name'] }}" required><br>
+        Documento: <input type="text" name="document" value="{{ worker['document'] }}" required><br>
+        Cargo: <input type="text" name="position" value="{{ worker['position'] }}" required><br>
+        Fecha de Nacimiento: <input type="text" id="datepicker" name="birth_date" value="{{ worker['birth_date'] }}" required><br>
+        <button type="submit" class="save-button">Guardar Cambios</button>
+    </form>
+    
+    
+    <script>
+        $(function () {
+            $("#datepicker").datepicker({
+                dateFormat: 'dd-mm-yy' // Formato de fecha
+            });
+        });
+    </script>
+{% endblock %}

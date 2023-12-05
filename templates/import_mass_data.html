@@ -1,0 +1,10 @@
+{% extends 'main.html' %}
+
+{% block content %}
+    <h1>Importación Masiva de Datos</h1>
+    <form method="POST" action="{{ base_url }}import_mass_data" enctype="multipart/form-data">
+        <input type="file" name="file" accept=".xlsx">
+        <button type="submit" class="save-button">Importar Datos Masivos</button>
+    </form>
+    
+{% endblock %}

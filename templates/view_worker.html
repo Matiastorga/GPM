@@ -1,0 +1,148 @@
+{% extends 'main.html' %}
+
+{% block content %}
+
+    <h1>Detalles del Trabajador</h1>
+    <div class="worker-details">
+        <div class="worker-info">
+            <table>
+                <tr>
+                    <th>Nombre Completo</th>
+                    <td>{{ worker['name'] }}</td>
+                </tr>
+                <tr>
+                    <th>Rut</th>
+                    <td>{{ worker['document'] }}</td>
+                </tr>
+                <tr>
+                    <th>Cargo</th>
+                    <td>{{ worker['position'] }}</td>
+                </tr>
+                <tr>
+                    <th>Fecha de Nacimiento</th>
+                    <td>{{ worker['birth_date'] }}</td>
+                </tr>
+                <tr>
+                    <th>Edad</th>
+                    <td>{{ worker['age'] }}</td>
+                </tr>
+            </table>
+        </div>
+        <div class="worker-photo">
+            <img src="{{ url_for('uploaded_file', filename=worker['photo']) }}" alt="Foto del trabajador">
+            <form method="POST" action="{{ base_url }}upload_photo/{{ worker['id'] }}" enctype="multipart/form-data">
+                <input type="file" name="photo">
+                <button type="submit" class="save-button">Cargar Foto</button>
+            </form>
+        </div>
+    </div>
+    <a href="{{ base_url }}edit_worker/{{ worker['id'] }}" class="btn primary">Editar Trabajador</a>
+    
+</div>
+<div>
+    
+    <h2>Información Contractual</h2>
+    <table>
+        <tr>
+            <th>Contrato Comercial</th>
+            <td>{{ worker.contract_commercial }}</td>
+        </tr>
+        <tr>
+            <th>Tipo de Contrato</th>
+            <td>{{ worker.contract_type }}</td>
+        </tr>
+        <tr>
+    <th>Fecha Inicio Contrato</th>
+    <td>
+        {% if worker.start_date %}
+            {{ worker.start_date.strftime('%d-%m-%Y') if worker.start_date is defined else '' }}
+        {% endif %}
+    </td>
+</tr>
+<tr>
+    <th>Fecha Termino Contrato</th>
+    <td>
+        {% if worker.end_date %}
+            {{ worker.end_date.strftime('%d-%m-%Y') if worker.end_date is defined else '' }}
+        {% endif %}
+    </td>
+</tr>
+        <tr>
+            <th>Tipo de Turno</th>
+            <td>{{ worker.shift_type }}</td>
+        </tr>
+        <tr>
+            <th>Antigüedad Laboral</th>
+            <td>
+                {% if 'job_experience' in worker %}
+                    {{ worker.job_experience.years }} años y {{ worker.job_experience.months }} meses
+                {% else %}
+                    No disponible
+                {% endif %}
+            </td>
+        </tr>
+    </table>
+    <a href="{{ base_url }}add_contract_info/{{ worker['id'] }}" class="btn primary">Agregar Información Contractual</a>
+    <h2>Información Personal</h2>
+    <table>
+        <tr>
+            <th>Documento</th>
+            <th>Fecha de Inicio</th>
+            <th>Fecha de Vencimiento</th>
+            <th>Tiempo de Vencimiento [días]</th>
+            <th>Estado</th>
+            <th>Archivo</th>
+        </tr>
+        {% for field, doc_name in documentos %}
+        <tr>
+            <td>{{ doc_name }}</td>
+            <td>{% if worker.get(field + '_start_date') %}
+                {{ worker[field+'_start_date'].strftime('%d-%m-%Y') }}
+                {% else %}
+                No disponible
+            {% endif %}</td>
+            <td>{% if worker.get(field + '_end_date') %}
+                {{ worker[field+'_end_date'].strftime('%d-%m-%Y') }}
+                {% else %}
+                No disponible
+            {% endif %}</td>
+            <td>{{ calculate_days_remaining(worker[field+'_end_date']) }} </td>
+            <td>
+                {% set estado_documento = calculate_estado_documento(worker[field+'_end_date'], worker[field+'_tipo_alerta_dias']) %}
+                {{ estado_documento }}
+            </td>
+                        <td>
+                {% if worker[field+'_file'] %}
+                    <a href="{{ url_for('uploaded_file', filename=worker[field+'_file']) }}" target="_blank" class="btn primary">Ver Archivo</a>
+                {% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+    
+
+    <a href="{{ base_url }}add_personal_info/{{ worker['id'] }}" class="btn primary">Ingresar Documentación Personal</a>    
+<style>
+    .worker-details {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .worker-info {
+        width: 50%;
+    }
+
+    .worker-photo {
+        width: 50%;
+        text-align: center;
+    }
+
+    .worker-photo img {
+        max-width: 100%;
+        max-height: 200px;
+    }
+</style>
+
+
+
+{% endblock %}

@@ -1,0 +1,51 @@
+{% extends 'main.html' %}
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+{% block content %}
+
+    <h2>Agregar Trabajador</h2>
+    <form method="POST" action="{{ base_url }}add_worker">
+        Nombre Completo: <input type="text" name="name" required><br>
+        Rut: <input type="text" name="document" required><br>
+        Cargo: <input type="text" name="position" required><br>
+        Fecha de Nacimiento: <input type="text" id="datepicker" name="birth_date" required><br>
+        <input type="submit" value="Agregar">
+    </form>
+    <h2>Busqueda de Trabajador</h2>    
+     <div style="display: flex; align-items: center;">
+        <form method="GET" action="{{ base_url }}">
+        Nombre del Trabajador: <input type="text" name="search_name" placeholder="Nombre del trabajador">
+        <input type="submit" value="Buscar">
+    </form>
+    <form method="GET" action="{{ base_url }}">
+        Rut del Trabajador: <input type="text" name="search_rut" placeholder="Rut del trabajador">
+        <input type="submit" value="Buscar">
+    </form>
+     </div>
+    <h2>Trabajadores</h2>
+    <table>
+        <tr>
+            <th>Nombre Completo</th>
+            <th>Rut</th>
+            <th>Cargo</th>
+            <th>Fecha de Nacimiento</th>
+            <th>Edad</th>
+            <th>Acciones</th>
+        </tr>
+        {% for worker in workers %}
+        <tr>
+            <td>{{ worker['name'] }}</td>
+            <td>{{ worker['document'] }}</td>
+            <td>{{ worker['position'] }}</td>
+            <td>{{ worker['birth_date'] }}</td>
+            <td>{{ worker['age'] }}</td>
+            <td>
+                <a href="{{ base_url }}edit_worker/{{ worker['id'] }}" class="btn warning">Editar</a>
+                <a href="{{ base_url }}delete_worker/{{ worker['id'] }}" class="btn danger">Eliminar</a>
+                <a href="{{ base_url }}view_worker/{{ worker['id'] }}" class="btn primary">Ingresar</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+    
+    
+{% endblock %}

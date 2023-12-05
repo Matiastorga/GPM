@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Gestión de Documentación de Personal</title>
+    <link rel="stylesheet" type="text/css" href="{{ base_url }}static/styles.css">
+    
+    <!-- Agrega estos enlaces en la sección head de tu archivo main.html -->
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+</head>
+<body>
+    <script>
+        var base_url = "/";
+    </script>
+    <header>
+        <h1>Gestión de Documentación de Personal</h1>
+    </header>
+    <nav>
+        <ul>
+            <li><a href="/index">Inicio</a></li>
+            <li><a href="{{ base_url }}notifications">Centro de Notificaciones</a></li>
+            <li><a href="{{ base_url }}import_mass_data">Importar Datos</a></li>
+            <li><a href="{{ base_url }}export_to_excel">Exportar a Excel</a></li>
+            <li><a href="{{ base_url }}logout">Cerrar Sesión</a></li>
+            
+        </ul>
+    </nav>
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+
+    <!-- Agrega este script debajo de los enlaces a jQuery y jQuery UI -->
+    <script>
+        $(function () {
+            var url_for = base_url + "static/";
+            $("#datepicker").datepicker({
+                dateFormat: 'dd-mm-yy' // Formato de fecha
+            });
+        });
+    </script>
+</body>
+</html>

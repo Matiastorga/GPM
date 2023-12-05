@@ -1,0 +1,20 @@
+{% extends 'main.html' %}
+
+{% block content %}
+    <h1>Agregar Trabajador</h1>
+    <form method="POST" action="{{ base_url }}add_worker">
+        Nombre Completo: <input type="text" name="name" required><br>
+        Rut: <input type="text" name="document" required><br>
+        Cargo: <input type="text" name="position" required><br>
+        Fecha de Nacimiento: <input type="text" id="datepicker" name="birth_date" required><br>
+        <input type="submit" value="Agregar">
+    </form>
+    
+    <script>
+        $(function () {
+            $("#datepicker").datepicker({
+                dateFormat: 'dd-mm-yy' // Formato de fecha
+            });
+        });
+    </script>
+{% endblock %}
